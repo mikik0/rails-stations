@@ -1,5 +1,5 @@
 ムービー一覧
 <% @movies.each do |movie| %>
 	<%= movie.name %>
-	<%= movie.image_url %>
+	<img src="<%= movie.image_url %>">
 <% end %>
