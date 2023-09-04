@@ -1,5 +1,5 @@
 class Admin::MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update]
+  before_action :set_movie, only: [:edit, :update, :destroy]
   def index
     @movies = Movie.all
       render :index
@@ -32,6 +32,17 @@ class Admin::MoviesController < ApplicationController
     else
       flash.now[:error] = '映画の更新に失敗しました'
       render :edit
+    end
+  end
+
+  def destroy
+    @movie = Movie.find(params[:id])
+    if @movie.destroy
+      flash[:success] = "映画が削除されました"
+      redirect_to admin_movies_path
+    else
+      flash[:error] = "削除中にエラーが発生しました"
+      redirect_to admin_movie_path(@movie)
     end
   end
 
